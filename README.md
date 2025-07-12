@@ -20,7 +20,7 @@ A backend service leveraging **Gemini (Google GenAI)** to generate concise expla
   - [📦 Routes](#-routes)
     - [🔑 Auth Routes](#-auth-routes)
     - [👥 User Routes](#-user-routes)
-    - [📚 Course Routes](#-course-routes)
+    - [📚 Learning Routes](#-learning-routes)
       - [Example Quiz Response](#example-quiz-response)
   - [🚀 Deployment](#-deployment)
   - [📄 License](#-license)
@@ -151,9 +151,9 @@ Authorization: Bearer <your_token>
 
 ---
 
-### 📚 Course Routes
+### 📚 Learning Routes
 
-**Base URL**: `/api/courses`
+**Base URL**: `/api/ai`
 
 | Method | Endpoint                   | Description                                 |
 |--------|----------------------------|---------------------------------------------|
