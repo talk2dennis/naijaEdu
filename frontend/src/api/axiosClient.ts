@@ -26,8 +26,14 @@ axiosClient.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
+// log responses
+
+
 axiosClient.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        // console.log("Response received:", response.status, response.data);
+        return response;
+    },
     (error) => {
         const originalRequest = error.config;
         if (error.response?.status === 401 && !originalRequest._retry) {
@@ -40,5 +46,7 @@ axiosClient.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+
 
 export default axiosClient;

@@ -13,10 +13,21 @@ export interface IUser {
     following?: string[];
 }
 
-// interface IMovie 
-export interface IContent {
-    _id: string;
-    topic: string;
-    question: string[];
-    answers: string[]
+
+
+export interface IQuizQuestion {
+  question: string;
+  options: string[];
+  correctAnswer: string;
 }
+
+export interface IContent {
+  _id: string;
+  topic: string;
+  explanation: string;
+  quizQuestions: IQuizQuestion[];
+  createdAt?: string;
+  updatedAt?: string;
+  userId?: string;
+}
+

@@ -124,7 +124,7 @@ const HomePage: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: index * 0.2 }}
                         >
-                            <img src="https://via.placeholder.com/100" alt={feature.alt} />
+                            {/* <img src="https://via.placeholder.com/100" alt={feature.alt} /> */}
                             <h3>{feature.title}</h3>
                             <p>{feature.desc}</p>
                         </motion.div>
@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
                 </div>
             </section>
 
-            {/* HOW IT WORKS */}
+            {/* HOW IT WORKS
             <section className="how-it-works">
                 <h2>How It Works</h2>
                 <li className="steps-list">
@@ -147,7 +147,7 @@ const HomePage: React.FC = () => {
                         </motion.li>
                     ))}
                 </li>
-            </section>
+            </section> */}
 
             {/* TESTIMONIALS */}
             <section className="testimonials">

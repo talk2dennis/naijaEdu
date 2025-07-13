@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import User, { IUser } from "../models/user.model";
+import LearningContent from "../models/LearningContent";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET, GOOGLE_CLIENT_ID } from "../config/env.check";
 import { console } from "inspector";
@@ -131,6 +132,9 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
         // Find user by email
         const user = await User.findOne({ email }).select('+password_hash');
+        const content = await LearningContent.find({
+            userId: user?._id
+        });
         if (!user) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
@@ -145,12 +149,12 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: "1h" });
 
         // Respond with user data and token
+        const { password_hash, ...userWithoutPassword } = user.toObject();
         res.status(200).json({
             message: "Login successful",
             user: {
-                id: user._id,
-                username: user.username,
-                email: user.email,
+            ...userWithoutPassword,
+            content,
             },
             token,
         });
@@ -169,16 +173,19 @@ export const getCurrentUser = async (req: Request, res: Response, next: NextFunc
         }
 
         // Find user by ID
-        const user = await User.findById(userId, '-password_hash').populate('favorites_movies').populate('watchlist_movies').populate('followers', '-password_hash').populate('following', '-password_hash');
+        const user = await User.findById(userId, '-password_hash');
+        // get user's learning content
+        const content = await LearningContent.find({
+            userId
+        });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        console.log(user.favorites_movies);
-
         // Respond with user data
         res.status(200).json({
-            user
+            ...user.toObject(),
+            content
         });
     }
     catch (error) {
@@ -201,10 +208,13 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
     try {
         const userId = req.params.id;
         const user = await User.findById(userId, '-password_hash');
+        const content = await LearningContent.find({ user: userId });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        res.status(200).json(user);
+        res.status(200).json(
+            { ...user.toObject(), content }
+        );
     } catch (error) {
         next(error);
     }

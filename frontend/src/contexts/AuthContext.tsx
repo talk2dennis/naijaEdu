@@ -21,7 +21,11 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<IUser | null>(null);
+    const [user, setUser] = useState<IUser | null>(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+    // Initialize token from localStorage
     const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
     const [loading, setLoading] = useState<boolean>(true);
     const [toastMsg, setToastMsg] = useState<{
@@ -41,10 +45,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
             try {
                 axiosClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                const res = await axiosClient.get("/auth/me");
-                const data = res.data as { user: IUser };
-                setUser(data.user);
-                // console.log("User loaded from token:", data.user);
+                // const res = await axiosClient.get("/auth/me");
+                // // log the user data
+                // // console.log("User data loaded from token:", res.data);
+                // const data = res.data as { user: IUser };
+                // setUser(data.user);
+                // // console.log("User loaded from token:", data.user);
             } catch (error) {
                 console.error("Failed to load user from token:", error);
                 logout();
@@ -57,13 +63,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [token]);
 
     const login = (newToken: string, userData: IUser) => {
+        // console.log("Logging in user:", userData);
         localStorage.setItem("token", newToken);
+        localStorage.setItem("user", JSON.stringify(userData));
         setToken(newToken);
         setUser(userData);
     };
 
     const logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setToken(null);
         setUser(null);
     };

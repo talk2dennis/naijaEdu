@@ -9,8 +9,6 @@ export interface IUser extends Document {
     google_id?: string;
     createdAt: Date;
     updatedAt: Date;
-    favorites_movies: string[];
-    watchlist_movies: string[];
     followers?: string[];
     following?: string[];
     // Method to compare passwords
@@ -59,16 +57,6 @@ const userSchema: Schema = new Schema({
             default: []
         }
     ],
-    favorites_movies: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Movie',
-        default: []
-    }],
-    watchlist_movies: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Movie',
-        default: []
-    }]
 }, {
     timestamps: true
 });

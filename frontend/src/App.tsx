@@ -8,14 +8,12 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import UserProfilePage from './pages/UserProfilePage';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import AboutPage from './pages/About';
 import PrivacyPage from './pages/Privacy';
 import ContactPage from './pages/Contact';
 import EditPage from './pages/EditProfile';
-import Message from './components/Message';
-
+import ChatPage from './pages/ChatPage';
+import Layout from './components/Layout';
 interface PrivateRouteProps {
     children: React.ReactElement;
 }
@@ -31,47 +29,46 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 };
 
 const AppRoutes: React.FC = () => {
-    const {toastMsg } = useAuth();
-    if (toastMsg) console.log("Toast message:", toastMsg);
     return (
         <Router>
-            {/* Show message if exists */}
-            {toastMsg?.message && (
-                <Message
-                    message={toastMsg.message}
-                    type={toastMsg.type} />
-            )}
-            {/* Show loading state if auth is loading */}
-            <Header />
             <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/privacy" element={<PrivacyPage />} />
-                <Route path="/About" element={<AboutPage />}/>
-                <Route path="/contact" element={<ContactPage />} />
+                {/* Layout wraps all routes */}
+                <Route path="/" element={<Layout />}>
+                    {/* Public */}
+                    <Route index element={<HomePage />} />
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="register" element={<RegisterPage />} />
+                    <Route path="privacy" element={<PrivacyPage />} />
+                    <Route path="about" element={<AboutPage />} />
+                    <Route path="contact" element={<ContactPage />} />
 
-                {/* Protected Routes */}
-                <Route path="/profile" element={
-                    <PrivateRoute>
-                        <UserProfilePage />
-                    </PrivateRoute>
-                } />
-                <Route path="/profile/edit" element={
-                    <PrivateRoute>
-                        <EditPage />
-                    </PrivateRoute>
-                } />
-            
+                    {/* Protected */}
+                    <Route path="profile" element={
+                        <PrivateRoute>
+                            <UserProfilePage />
+                        </PrivateRoute>
+                    } />
+                    <Route path="profile/edit" element={
+                        <PrivateRoute>
+                            <EditPage />
+                        </PrivateRoute>
+                    } />
+                    <Route path="chat" element={
+                        <PrivateRoute>
+                            <ChatPage />
+                        </PrivateRoute>
+                    } />
 
-                {/* Redirect unknown paths */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                    {/* Catch all for 404 */}
+
+                    {/* Catch all */}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Route>
             </Routes>
-            <Footer />
         </Router>
     );
 };
+
 
 const App: React.FC = () => {
     return (

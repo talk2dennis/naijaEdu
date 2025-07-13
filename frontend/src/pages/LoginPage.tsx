@@ -51,13 +51,13 @@ const LoginPage = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const { login, logout, toast } = useAuth();
+    const { login, toast } = useAuth();
     const navigate = useNavigate();
 
-    // Redirect to home if user is already logged in    
-    useEffect(() => {
-        logout();
-    }, []);
+    // // Redirect to home if user is already logged in    
+    // useEffect(() => {
+    //     logout();
+    // }, []);
 
     useEffect(() => {
         // Clear error when email or password changes
