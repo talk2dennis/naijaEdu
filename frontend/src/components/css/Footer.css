@@ -1,0 +1,26 @@
+footer {
+    margin: 0;
+    text-align: center;
+    padding-top: 20px;
+    color: white;
+}
+.footer-links {
+     color: white;
+    margin: 10px;
+}
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 5px;
+    margin: 5px;
+    font-size: 14px;
+
+    &:hover {
+        color: tomato;
+        background: #ffffff;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 5px;
+        transition: all 0.7s ease-in-out;
+    }
+}
