@@ -1,8 +1,3 @@
-import { useAuth } from "../contexts/AuthContext";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Loading from "../components/Loading";
-import axiosClient from "../api/axiosClient";
 import "./css/Favorites.css";
 
 const Search = () => {
