@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axiosClient from '../api/axiosClient';
+import { useAuth } from '../contexts/AuthContext';
 import type { IContent, IQuizQuestion } from '../types';
 import ReactMarkdown from 'react-markdown';
 import Loading from '../components/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './css/ChatPage.css';
 
 type LearningPage = 'topicInput' | 'explanationDisplay' | 'quizDisplay';
@@ -16,9 +19,22 @@ const ChatPage: React.FC = () => {
     const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
     const [showQuizResults, setShowQuizResults] = useState(false);
 
+    const { user, setUser, toast } = useAuth();
+
+    const handleUpdateUser = (content: IContent) => {
+        if (!user) return;
+
+        // Update user content
+        const updatedContent = [...user.content, content];
+        setUser({ ...user, content: updatedContent });
+    };
+
+
+
     const handleGetExplanation = async () => {
         const trimmedTopic = topicInput.trim();
         if (!trimmedTopic || trimmedTopic.length < 3) {
+            toast('Please enter a valid topic with at least 3 characters.', 'error');
             setError('Please enter a valid topic with at least 3 characters.');
             return;
         }
@@ -36,6 +52,7 @@ const ChatPage: React.FC = () => {
             setCurrentPage('explanationDisplay');
         } catch (err: any) {
             console.error('Error generating explanation:', err);
+            toast('Failed to generate explanation. Please try again.', 'error');
             setError(err.response?.data?.message || 'Failed to generate explanation. Please try again.');
         } finally {
             setLoading(false);
@@ -44,6 +61,7 @@ const ChatPage: React.FC = () => {
 
     const handleGenerateQuiz = async () => {
         if (!learningContent?.explanation) {
+            toast('No explanation available to generate a quiz for.', 'error');
             setError('No explanation available to generate a quiz for.');
             return;
         }
@@ -60,9 +78,11 @@ const ChatPage: React.FC = () => {
             }
 
             setLearningContent(response.data);
+            handleUpdateUser(response.data);
             setCurrentPage('quizDisplay');
         } catch (err: any) {
             console.error('Error generating quiz:', err);
+            toast('Failed to generate quiz. Please try again.', 'error');
             setError(err.response?.data?.message || 'Failed to generate quiz. Please try again.');
         } finally {
             setLoading(false);
@@ -134,11 +154,19 @@ const ChatPage: React.FC = () => {
             {/* chathistory card */}
             <div className="chat-history-card">
                 <h2>History</h2>
-                <hr />
-                {learningContent && (
-                    <div className="history-item">
-                        <h3>{learningContent.topic}</h3>
-                    </div>
+                <div className="history-header">
+                    <FontAwesomeIcon icon={faBars} className="history-icon" />
+                </div>
+                {user?.content.length === 0 ? (
+                    <p className="no-history">No chat history available.</p>
+                ) : (
+                    user?.content.map((content) => (
+                        <div>
+                            <div key={content._id} className="history-item">
+                                <p>{content.topic}</p>
+                            </div>
+                        </div>
+                    ))
                 )}
             </div>
             <div className="chat-card">

@@ -13,7 +13,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
     (config) => {
-        // console.log("Outgoing request:", config.method, config.url);
+        // console.log("Outgoing request:", config);
         if (typeof window !== 'undefined') {
             const token = localStorage.getItem('token');
             if (token) {

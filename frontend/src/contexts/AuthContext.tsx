@@ -1,13 +1,15 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import type { ReactNode } from "react";
 import axiosClient from "../api/axiosClient";
-import type { IUser } from "../types";
+import type { IUser, IContent } from "../types";
 
 interface AuthContextType {
     user: IUser | null;
     token: string | null;
     isAuthenticated: boolean;
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+    content: IContent[] | null;
+    setContent: React.Dispatch<React.SetStateAction<IContent[] | null>>;
     toast: (message: string, type: "success" | "error") => void;
     toastMsg: {
         message: string;
@@ -21,10 +23,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<IUser | null>(() => {
-        const storedUser = localStorage.getItem("user");
-        return storedUser ? JSON.parse(storedUser) : null;
-    });
+    const [user, setUser] = useState<IUser | null>(null);
+    const [content, setContent] = useState<IContent[] | null>(null);
     // Initialize token from localStorage
     const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
     const [loading, setLoading] = useState<boolean>(true);
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         message: string;
         type: "success" | "error";
     } | null>(null);
+    
 
     useEffect(() => {
         // Load user from token when component mounts or token changes
@@ -45,11 +46,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
             try {
                 axiosClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                // const res = await axiosClient.get("/auth/me");
-                // // log the user data
-                // // console.log("User data loaded from token:", res.data);
-                // const data = res.data as { user: IUser };
-                // setUser(data.user);
+                const res = await axiosClient.get("/auth/me");
+                const data = res.data as { user: IUser };
+                setUser(data.user);
+                setContent(data.user?.content || []);
                 // // console.log("User loaded from token:", data.user);
             } catch (error) {
                 console.error("Failed to load user from token:", error);
@@ -64,15 +64,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const login = (newToken: string, userData: IUser) => {
         // console.log("Logging in user:", userData);
+        // console.log("Setting token:", newToken);
         localStorage.setItem("token", newToken);
-        localStorage.setItem("user", JSON.stringify(userData));
         setToken(newToken);
         setUser(userData);
     };
 
     const logout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
         setToken(null);
         setUser(null);
     };
@@ -84,7 +83,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ toast, toastMsg, user, setUser, token, isAuthenticated: !!user, login, logout, loading }}>
+        <AuthContext.Provider value={{ toast, toastMsg, user, setUser, content, setContent, token, isAuthenticated: !!user, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

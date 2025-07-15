@@ -34,7 +34,6 @@ export default function Header() {
 
       <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
         <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</NavLink>
-        <NavLink to="/chat" className="nav-link" onClick={() => setMenuOpen(false)}>Chat</NavLink>
         {!isAuthenticated && (
           <>
             <NavLink to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>Login</NavLink>

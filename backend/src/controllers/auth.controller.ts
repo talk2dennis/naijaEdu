@@ -184,8 +184,11 @@ export const getCurrentUser = async (req: Request, res: Response, next: NextFunc
 
         // Respond with user data
         res.status(200).json({
+            message: "Login successful",
+            user: {
             ...user.toObject(),
-            content
+            content,
+            }
         });
     }
     catch (error) {

@@ -9,8 +9,8 @@ export interface IUser {
     isAuthenticated?: boolean;
     profilePicture?: string;
     content: IContent[];
-    followers?: string[];
-    following?: string[];
+    followers: string[];
+    following: string[];
 }
 
 
@@ -26,8 +26,8 @@ export interface IContent {
   topic: string;
   explanation: string;
   quizQuestions: IQuizQuestion[];
-  createdAt?: string;
-  updatedAt?: string;
-  userId?: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
 }
 
