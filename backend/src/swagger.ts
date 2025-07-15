@@ -8,7 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const url = NODE_ENV === 'production'
-  ? 'https://movieplane.onrender.com'
+  ? 'https://naijaedu.onrender.com'
   : `http://localhost:${PORT}`;
 
 
