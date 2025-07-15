@@ -243,3 +243,41 @@
   font-weight: 500;
   color: #744210;
 }
+
+
+/* for small phones */
+@media (max-width: 480px) {
+  .chat-page-container {
+    padding: 1rem;
+     display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .chat-card {
+    padding: 1rem;
+    min-height: 60vh;
+    input {
+      margin-top: 3rem;
+    }
+   
+  }
+
+  .chat-history-card {
+    width: 100%;
+    max-height: 60vh;
+    margin: 1rem 0;
+    &:hover {
+      width: 100%;
+      transition: none;
+    }
+  }
+
+  .chat-title {
+    font-size: 1.5rem;
+  }
+
+  .topic-input-section input,
+  .topic-input-section button {
+    width: calc(100% - 1rem);
+  }
+}
