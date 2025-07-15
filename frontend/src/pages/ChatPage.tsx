@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axiosClient from '../api/axiosClient';
 import type { IContent, IQuizQuestion } from '../types';
 import './css/ChatPage.css';

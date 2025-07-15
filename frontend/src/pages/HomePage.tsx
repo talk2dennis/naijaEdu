@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/HomePage.css'
 import { motion } from 'framer-motion';
-import axiosClient from '../api/axiosClient';
 import Loading from '../components/Loading';
 import { useAuth } from '../contexts/AuthContext';
 
