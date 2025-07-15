@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axiosClient from '../api/axiosClient';
 import type { IContent, IQuizQuestion } from '../types';
+import ReactMarkdown from 'react-markdown';
+import Loading from '../components/Loading';
 import './css/ChatPage.css';
 
 type LearningPage = 'topicInput' | 'explanationDisplay' | 'quizDisplay';
@@ -16,8 +18,8 @@ const ChatPage: React.FC = () => {
 
     const handleGetExplanation = async () => {
         const trimmedTopic = topicInput.trim();
-        if (!trimmedTopic) {
-            setError('Please enter a topic.');
+        if (!trimmedTopic || trimmedTopic.length < 3) {
+            setError('Please enter a valid topic with at least 3 characters.');
             return;
         }
 
@@ -52,11 +54,7 @@ const ChatPage: React.FC = () => {
         setShowQuizResults(false);
 
         try {
-            const response = await axiosClient.post<IContent>('/ai/generate-quiz', {
-                contentId: learningContent._id,
-                explanation: learningContent.explanation
-            });
-
+            const response = await axiosClient.post<IContent>(`/ai/generate-quiz/${learningContent._id}`);
             if (!response.data.quizQuestions?.length) {
                 throw new Error('No quiz questions generated.');
             }
@@ -83,6 +81,12 @@ const ChatPage: React.FC = () => {
         const isAnswered = userAnswers[index] !== undefined;
         const isCorrect = showQuizResults && userAnswers[index] === q.correctAnswer;
         const isIncorrect = showQuizResults && isAnswered && !isCorrect;
+
+
+        // loading
+        if (loading) {
+            return <Loading title='Loading...' />;
+        }
 
         return (
             <div key={index} className={`question-card ${isCorrect ? 'correct' : isIncorrect ? 'incorrect' : ''}`}>
@@ -127,10 +131,20 @@ const ChatPage: React.FC = () => {
 
     return (
         <div className="chat-page-container">
+            {/* chathistory card */}
+            <div className="chat-history-card">
+                <h2>History</h2>
+                <hr />
+                {learningContent && (
+                    <div className="history-item">
+                        <h3>{learningContent.topic}</h3>
+                    </div>
+                )}
+            </div>
             <div className="chat-card">
-                <h1 className="chat-title">NaijaEdu Learning Path</h1>
+                {/* <h1 className="chat-title">NaijaEdu Learning Path</h1> */}
 
-                {loading && <div className="loading">Processing your request...</div>}
+                {/* {loading && <div className="loading">Processing your request...</div>} */}
                 {error && <div className="error-message">{error}</div>}
 
                 {currentPage === 'topicInput' && (
@@ -151,7 +165,9 @@ const ChatPage: React.FC = () => {
                 {currentPage === 'explanationDisplay' && learningContent && (
                     <div className="explanation-section">
                         <h2>Explanation for: {learningContent.topic}</h2>
-                        <div className="explanation-box">{learningContent.explanation}</div>
+                        <div className="explanation-box">
+                            <ReactMarkdown>{learningContent.explanation}</ReactMarkdown>
+                        </div>
                         <div className="action-buttons">
                             <button onClick={() => setCurrentPage('topicInput')} disabled={loading}>Go Back</button>
                             <button onClick={handleGenerateQuiz} disabled={loading}>Generate Quiz</button>
