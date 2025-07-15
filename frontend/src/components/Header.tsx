@@ -34,6 +34,7 @@ export default function Header() {
 
       <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
         <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</NavLink>
+        <NavLink to="/chat" className="nav-link" onClick={() => setMenuOpen(false)}>Chat</NavLink>
         {!isAuthenticated && (
           <>
             <NavLink to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>Login</NavLink>
@@ -43,10 +44,6 @@ export default function Header() {
 
         {isAuthenticated && (
           <>
-            <NavLink to="/history" className="nav-link" onClick={() => setMenuOpen(false)}>
-              Chat History
-              <span className='notification'> ({user?.content?.length ?? 0})</span>
-            </NavLink>
             <button className="nav-link logout-btn" onClick={handleLogout}>Logout</button>
             <div style={{ width: '40px', height: '40px', fontSize: '14px'}} onClick={() => { navigate('/profile'); }} >
               <ProfilePicture imageUrl={user?.profilePicture ?? null} username={user?.username.split('@')[0] ?? ''} />
