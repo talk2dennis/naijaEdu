@@ -14,7 +14,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   // log the user data
-  console.log("Current user in Header:", user);
+  // console.log("Current user in Header:", user);
 
   const handleLogout = () => {
     logout();
