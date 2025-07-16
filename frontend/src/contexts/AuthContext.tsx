@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 setContent(data.user?.content || []);
                 // // console.log("User loaded from token:", data.user);
             } catch (error) {
-                console.error("Failed to load user from token:", error);
+                // console.error("Failed to load user from token:", error);
                 logout();
             } finally {
                 setLoading(false);
@@ -78,8 +78,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const toast = (message: string, type: "success" | "error") => {
         setToastMsg({ message, type });
-         // Clear toast after 3 seconds
-        setTimeout(() => setToastMsg(null), 10000);
+         // Clear toast after 30 seconds
+        setTimeout(() => setToastMsg(null), 30000);
     };
 
     return (

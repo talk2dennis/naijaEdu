@@ -20,15 +20,20 @@ const ChatPage: React.FC = () => {
     const [error, setError] = useState('');
     const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
     const [showQuizResults, setShowQuizResults] = useState(false);
+    const [score, setScore] = useState<number | null>(null);
 
-    const { user, setUser, toast } = useAuth();
+    const { user, setUser, toast, logout } = useAuth();
 
     const handleUpdateUser = (content: IContent) => {
         if (!user) return;
 
+        // check if content already exists
+        const existingContent = user.content.find(c => c._id === content._id);
+        if (existingContent) return
+
         // Update user content
         const updatedContent = [...user.content, content];
-        setUser({ ...user, content: updatedContent });
+        setUser({ ...user, content: updatedContent, });
     };
 
 
@@ -47,6 +52,7 @@ const ChatPage: React.FC = () => {
         setLearningContent(null);
         setUserAnswers({});
         setShowQuizResults(false);
+        setScore(null);
 
         try {
             const response = await axiosClient.post<IContent>('/ai/generate-explanation', { topic: trimmedTopic });
@@ -68,6 +74,13 @@ const ChatPage: React.FC = () => {
             return;
         }
 
+        // check if quiz questions already exist
+        if (learningContent.quizQuestions && learningContent.quizQuestions.length > 0) {
+            toast('Quiz already generated for this topic.', 'success');
+            setCurrentPage('quizDisplay');
+            return;
+        }
+
         setLoading(true);
         setError('');
         setUserAnswers({});
@@ -83,9 +96,14 @@ const ChatPage: React.FC = () => {
             handleUpdateUser(response.data);
             setCurrentPage('quizDisplay');
         } catch (err: any) {
+            if (err.response?.data.message?.includes('token expired')) {
+                toast('Session expired. Please log in again.', 'error');
+                logout();
+            }
             console.error('Error generating quiz:', err);
             toast('Failed to generate quiz. Please try again.', 'error');
             setError(err.response?.data?.message || 'Failed to generate quiz. Please try again.');
+            
         } finally {
             setLoading(false);
         }
@@ -95,14 +113,39 @@ const ChatPage: React.FC = () => {
         setUserAnswers(prev => ({ ...prev, [index]: option }));
     };
 
+    // calculate score
     const handleSubmitQuiz = () => {
+        if (!learningContent?.quizQuestions) return 0;
+        const correctAnswers = learningContent.quizQuestions.filter((q, index) => userAnswers[index] === q.correctAnswer).length;
+        const score = Math.round((correctAnswers / learningContent.quizQuestions.length) * 100);
+        const messageType = score >= 70 ? 'success' : 'error';
+        toast(`Your score: ${score}%`, messageType);
         setShowQuizResults(true);
+        setScore(score);
+    };
+
+
+
+    // handle content selection from history
+    const handleSelectedContent = (selectedItem: IContent | null) => {
+        if (selectedItem) {
+            setLearningContent(selectedItem);
+            setCurrentPage('explanationDisplay');
+            setUserAnswers({});
+            setShowQuizResults(false);
+        } else {
+            setLearningContent(null);
+            setCurrentPage('topicInput');
+            setUserAnswers({});
+            setShowQuizResults(false);
+        }
     };
 
     // loading
     if (loading) {
         return <Loading title='loading content' />;
     }
+
 
     // const renderQuizQuestion = (q: IQuizQuestion, index: number) => {
     //     const isAnswered = userAnswers[index] !== undefined;
@@ -126,7 +169,10 @@ const ChatPage: React.FC = () => {
     return (
         <div className="chat-page-container">
             {/* chathistory card */}
-            <ChatHistoryCard content={user?.content || []} />
+            <ChatHistoryCard
+                content={user?.content || []}
+                setSelectedContent={handleSelectedContent}
+            />
 
             {/* main chat card */}
             <div className="chat-card">
@@ -169,6 +215,8 @@ const ChatPage: React.FC = () => {
                         onBack={() => setCurrentPage('explanationDisplay')}
                         showResults={showQuizResults}
                         loading={loading}
+                        score={score}
+                        setShowQuizResults={setShowQuizResults}
                     />
                 )}
             </div>

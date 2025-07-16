@@ -12,17 +12,19 @@
   border: 1px solid #c3dafe;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  padding: 2rem;
-  width: 80px;
+  padding: 10px;
+  z-index: 1000;
   overflow-x: hidden;
   overflow-y: scroll;
   max-height: 100vh;
   margin-bottom: 2rem;
-  &:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    transition: width 0.8s ease-in;
-  }
+ 
+}
+
+.chat-history-card .chat-visible {
+  display: block;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 .chat-card {
@@ -64,12 +66,18 @@
   }
 }
 
+.history-header {
+  text-align: center;
+}
+
 .history-item {
   background: #f7fafc;
   padding: 1rem;
+  margin: 10px;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
   cursor: pointer;
+  display: none;
   transition: background-color 0.3s ease;
 
   &:hover {
@@ -242,6 +250,37 @@
   border-radius: 0.5rem;
   font-weight: 500;
   color: #744210;
+}
+
+.quiz-score {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: #e7eef5;
+  color: rgb(0, 0, 0);
+  padding: 0.75rem;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.quiz-score::after {
+  content: 'X';
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  color: red;
+  cursor: pointer;
 }
 
 
