@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { IContent } from '../types';
 import Share from './Share';
@@ -23,10 +23,6 @@ const ExplanationSection: React.FC<Props> = ({ content, onBack, onNext, disabled
     utterance.lang = 'en-US';
     utterance.rate = 0.9;
     utterance.pitch = 1;
-    console.log("Speaking:");
-    // Cancel any ongoing speech
-    window.speechSynthesis.cancel();
-
     speechSynthesis.speak(utterance);
   }
 
