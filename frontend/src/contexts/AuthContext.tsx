@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 setContent(data.user?.content || []);
                 // // console.log("User loaded from token:", data.user);
             } catch (error) {
+                toast('Session expired. Please log in again.', 'error');
                 // console.error("Failed to load user from token:", error);
                 logout();
             } finally {
