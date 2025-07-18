@@ -1,0 +1,8 @@
+.share-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px 0;
+    cursor: pointer;
+}
