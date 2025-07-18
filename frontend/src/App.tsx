@@ -14,6 +14,8 @@ import ContactPage from './pages/Contact';
 import EditPage from './pages/EditProfile';
 import ChatPage from './pages/ChatPage';
 import Layout from './components/Layout';
+
+
 interface PrivateRouteProps {
     children: React.ReactElement;
 }
