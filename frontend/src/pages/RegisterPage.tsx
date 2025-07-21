@@ -25,7 +25,7 @@ const RegisterPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
-  const {toast, logout} = useAuth();
+  const { toast, logout } = useAuth();
 
   logout();
 
@@ -112,6 +112,11 @@ const RegisterPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // set loading state
+  const setLoadingState = (loading: boolean) => {
+    setLoading(loading);
   };
 
   const passwordStrength = getPasswordStrength(form.password);
@@ -225,7 +230,10 @@ const RegisterPage: React.FC = () => {
         </div>
       </form>
       <div className="footer-container">
-        <GoogleSignInButton onError={handleGoogleSignInError} />
+        <GoogleSignInButton
+          onError={handleGoogleSignInError}
+          setLoading={setLoadingState}
+        />
       </div>
     </div>
   );
