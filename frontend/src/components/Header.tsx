@@ -44,7 +44,7 @@ export default function Header() {
 
         {isAuthenticated && (
           <>
-          <NavLink to="/chat" className="nav-link" onClick={() => setMenuOpen(false)}>Chat ({user?.content.length})</NavLink>
+          <NavLink to="/chat" className="nav-link" onClick={() => setMenuOpen(false)}>Chat ({user?.content?.length})</NavLink>
             <button className="nav-link logout-btn" onClick={handleLogout}>Logout</button>
             <div style={{ width: '40px', height: '40px', fontSize: '14px'}} onClick={() => { navigate('/profile'); }} >
               <ProfilePicture imageUrl={user?.profilePicture ?? null} username={user?.username.split('@')[0] ?? ''} />
