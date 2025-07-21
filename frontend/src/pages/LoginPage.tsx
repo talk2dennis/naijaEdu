@@ -51,16 +51,18 @@ const LoginPage = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const { login, toast } = useAuth();
+    const { login, toast, isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
     // // Redirect to home if user is already logged in    
-    // useEffect(() => {
-    //     logout();
-    // }, []);
-
     useEffect(() => {
-        // Clear error when email or password changes
+        if (isAuthenticated) {
+            navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
+
+    // Clear error when email or password changes
+    useEffect(() => {
         setError("");
     }, [email, password]);
 
@@ -101,6 +103,11 @@ const LoginPage = () => {
     // handle error from google sign in
     const handleGoogleSignInError = (message: string) => {
         setError(message);
+    };
+
+    // set the loading state
+    const setLoadingState = (loading: boolean) => {
+        setLoading(loading);
     };
 
     // if loading, show a loading spinner or message
@@ -166,7 +173,7 @@ const LoginPage = () => {
                 </form>
             </div>
             <div className="footer-container">
-                <GoogleSignInButton onError={handleGoogleSignInError} />
+                <GoogleSignInButton onError={handleGoogleSignInError} setLoading={setLoadingState} />
             </div>
         </div>
     );

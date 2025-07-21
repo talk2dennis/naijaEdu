@@ -7,13 +7,16 @@ import axiosClient from "../api/axiosClient";
 interface GoogleSignInButtonProps {
     onSuccess?: () => void;
     onError?: (error: any) => void;
+    // setLoading
+    setLoading?: (loading: boolean) => void;
 }
 
-const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({ onSuccess, onError }) => {
+const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({ onSuccess, onError, setLoading }) => {
     const { login, toast } = useAuth();
     const navigate = useNavigate();
     const handleSuccess = async (credentialResponse: any) => {
         try {
+            setLoading?.(true);
             const res = await axiosClient.post<any>('/auth/google', {
                 id_token: credentialResponse.credential,
             });
@@ -31,6 +34,8 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({ onSuccess, onEr
             if (onError) {
                 onError(error.response?.data?.message || 'Google Sign-In failed.');
             }
+        } finally {
+            setLoading?.(false);
         }
     }
 
