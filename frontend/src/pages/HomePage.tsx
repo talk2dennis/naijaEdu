@@ -4,6 +4,10 @@ import './css/HomePage.css'
 import { motion } from 'framer-motion';
 import Loading from '../components/Loading';
 import { useAuth } from '../contexts/AuthContext';
+import image1 from '../assets/image1.jpg';
+import image2 from '../assets/image2.jpg';
+import image3 from '../assets/image3.jpg';
+import { howItWorksSteps } from '../data/object';
 
 
 
@@ -96,7 +100,7 @@ const HomePage: React.FC = () => {
             }
 
             {/* FEATURES */}
-            <section className="features-section">
+            <div className="features-section">
                 <h2>Why NaijaEdu?</h2>
                 <div className="features-grid">
                     {[
@@ -123,33 +127,35 @@ const HomePage: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: index * 0.2 }}
                         >
-                            {/* <img src="https://via.placeholder.com/100" alt={feature.alt} /> */}
+                            <img src={index === 0 ? image1 : index === 1 ? image2 : image3} alt={feature.alt} />
                             <h3>{feature.title}</h3>
                             <p>{feature.desc}</p>
                         </motion.div>
                     ))}
                 </div>
-            </section>
+            </div>
 
-            {/* HOW IT WORKS
-            <section className="how-it-works">
+            {/* HOW IT WORKS */}
+            <div className="how-it-works">
                 <h2>How It Works</h2>
-                <li className="steps-list">
-                    {[1, 2, 3, 4].map((step, i) => (
-                        <motion.li
+                <div className="steps-list">
+                    {howItWorksSteps.map((step, i) => (
+                        <motion.div
                             key={i}
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.2, duration: 0.5 }}
+                            className="list-item"
                         >
-                            {step}. Step description placeholder
-                        </motion.li>
+                            <h3>{step.title}</h3>
+                            <p>{step.description}</p>
+                        </motion.div>
                     ))}
-                </li>
-            </section> */}
+                </div>
+            </div>
 
             {/* TESTIMONIALS */}
-            <section className="testimonials">
+            <div className="testimonials">
                 <h2>What Users Are Saying</h2>
                 <motion.div
                     className="testimonial-card"
@@ -170,7 +176,7 @@ const HomePage: React.FC = () => {
                     <p>“The quizzes are so useful, especially before tests. And I love the local examples!”</p>
                     <strong>– Musa, WAEC Candidate</strong>
                 </motion.div>
-            </section>
+            </div>
         </div >
     );
 };

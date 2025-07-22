@@ -92,24 +92,31 @@
   padding-bottom: 0.5rem;
 }
 
-section {
-  color: black;
-  li {
-    text-decoration: none;
-  }
+
+/* Features Section */
+.features-section {
+  margin: 10px;
+  min-height: 100vh;
+  background: #f0f4f8;
+  padding: 3rem 1rem;
+  text-align: center;
+  overflow: hidden;
 }
 
-section h2 {
-  color: white;
-  text-align: center;
-}
 .features-grid {
-  background-color: white;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
   padding: 2rem;
+}
+
+.features-grid img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
 
 .feature-card {
@@ -121,8 +128,23 @@ section h2 {
 }
 
 .feature-card:hover {
-  transform: translateY(-6px);
+  transform: scale(1.5);
+  background: #f9f9f9;
+  border-color: #0073e6;
+  cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* How It Works */
+
+.how-it-works {
+  margin: 30px auto;
+  background: #d1beeb;
+  padding: 3rem 1rem;
+  text-align: center;
+  min-height: 90vh;
+  max-width: 800px;
+  border-radius: 20px;
 }
 
 /* Steps List */
@@ -132,7 +154,7 @@ section h2 {
   margin: auto;
 }
 
-.steps-list li {
+.steps-list .list-item {
   margin-bottom: 1.2rem;
   padding: 0.8rem 1rem;
   background: #f9f9f9;
@@ -142,7 +164,19 @@ section h2 {
 }
 
 /* Testimonials */
+.testimonials {
+  background: #0073e6;
+  padding: 3rem 1rem;
+  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+  min-height: 60vh;
+}
+
 .testimonials h2 {
+  text-align: center;
+  color: #fff;
   margin-bottom: 1.5rem;
 }
 

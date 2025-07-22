@@ -17,10 +17,16 @@ const ExplanationSection: React.FC<Props> = ({ content, onBack, onNext, disabled
     return <div className="error">No explanation available.</div>;
   }
 
-  // seak function
+  // helper function to remove markdown syntax
+  const removeMarkdownSyntax = (text: string) => {
+    return text.replace(/[#*`~_]/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+  }
+
+  // speak function
   const speak = (text: string) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-NG';
+    const utterance = new SpeechSynthesisUtterance(removeMarkdownSyntax(text));
+    // use nigeria english accent is available
+    utterance.lang = 'en-UK';
     utterance.rate = 0.9;
     utterance.pitch = 1;
     speechSynthesis.speak(utterance);
