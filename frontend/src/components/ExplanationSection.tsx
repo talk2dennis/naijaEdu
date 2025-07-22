@@ -20,7 +20,7 @@ const ExplanationSection: React.FC<Props> = ({ content, onBack, onNext, disabled
   // seak function
   const speak = (text: string) => {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
+    utterance.lang = 'en-NG';
     utterance.rate = 0.9;
     utterance.pitch = 1;
     speechSynthesis.speak(utterance);
