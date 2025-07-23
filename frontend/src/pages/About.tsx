@@ -31,7 +31,7 @@ const AboutPage = () => {
       <section className="developer">
         <h2>Meet the Developer</h2>
         <p>
-          Hi, I'm Adigwe Dennis, a passionate software engineer and full-stack developer with expertise in React, TypeScript, Node.js, Express, and RESTful API design. I built MoviePlane to simplify the way users discover and manage movie experiences online.
+          Hi, I'm Adigwe Dennis, a passionate software engineer and full-stack developer with expertise in React, React Native, TypeScript, Node.js, Express, and RESTful API design. I built NaijaEdu to make learning more accessible and engaging for everyone, with a special focus on making learning personalized and fun, particularly for younger ones. My goal is to leverage AI to create a personalized learning experience that adapts to each user's needs and interests.
         </p>
         <p>
           I love building modern, scalable, and user-friendly web applications. You can connect with me via my portfolio or professional networks.
