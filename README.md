@@ -1,207 +1,177 @@
-# 📚 naijaEdu Backend API
+# 📚 naijaEdu – AI-Powered Learning for Nigerian Students
 
-A backend service leveraging **Gemini (Google GenAI)** to generate concise explanations and multiple-choice quizzes for any topic. Tailored for Nigerian students, it delivers clear, relatable educational content.
+**naijaEdu** is a full-stack AI-driven learning platform that helps Nigerian students understand complex topics in simple terms. Powered by Google Gemini, the app explains any topic, reads it out loud, and generates quiz questions to reinforce learning all through an intuitive chat interface.
 
----
-
-## 📚 Table of Contents
-
-- [📚 naijaEdu Backend API](#-naijaedu-backend-api)
-  - [📚 Table of Contents](#-table-of-contents)
-  - [🛠️ Technologies Used](#️-technologies-used)
-  - [🚀 Features](#-features)
-  - [⚙️ Tech Stack](#️-tech-stack)
-  - [🧰 Getting Started](#-getting-started)
-    - [📦 Installation](#-installation)
-    - [⚙️ Environment Variables](#️-environment-variables)
-    - [▶️ Running Locally](#️-running-locally)
-  - [📑 API Documentation](#-api-documentation)
-  - [🔐 Authentication](#-authentication)
-  - [📦 Routes](#-routes)
-    - [🔑 Auth Routes](#-auth-routes)
-    - [👥 User Routes](#-user-routes)
-    - [📚 Learning Routes](#-learning-routes)
-      - [Example Quiz Response](#example-quiz-response)
-  - [🚀 Deployment](#-deployment)
-  - [📄 License](#-license)
+With Google sign-in, voice playback, and confetti-based gamification, naijaEdu makes studying smarter and more engaging.
 
 ---
 
-## 🛠️ Technologies Used
+## 🌍 Live Demo
 
-- Node.js
-- TypeScript
-- MongoDB & Mongoose
-- Gemini API (`@google/genai`)
-- Axios
+* 🧠 App: [https://naijaedu.vercel.app](https://naijaedu.vercel.app)
+* 🛠️ API Docs (Swagger): [https://naijaedu.onrender.com/api-docs](https://naijaedu.onrender.com/api-docs)
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-- 🔐 JWT Authentication (Register, Login, Current User)
-- 👤 User Management (Profile, Update, Delete)
-- 📚 Course Management (CRUD operations)
-- 🎓 Course Enrollment/Unenrollment
-- 📄 Swagger UI for API docs
-- 🛡️ Security: Helmet & CORS
-- 📝 Request validation middleware
-- 📘 AI-generated topic explanations (Gemini)
-- ❓ AI-generated 3-question multiple-choice quizzes
-- 💾 Content & quiz persistence in MongoDB
-- 🌍 Nigerian learner-focused design
+### 🧠 AI Learning Assistant
+
+* Input any topic and receive a simplified explanation via the Gemini API.
+
+### 🔊 Text-to-Speech (TTS)
+
+* Explanations can be played aloud for accessibility and ease of comprehension.
+
+### 🎯 Auto Quiz Generator
+
+* Instantly generate multiple-choice quizzes from topic content.
+
+### 🎉 Gamified UX
+
+* Confetti animation celebrates successful quiz attempts.
+
+### 🔐 Authentication
+
+* Supports Google sign-in and email/password login.
+
+### 📤 Shareable Content
+
+* Share explanations directly to social platforms.
 
 ---
 
-## ⚙️ Tech Stack
+## 🧑‍💻 Tech Stack
 
-- **Node.js**
-- **Express**
-- **TypeScript**
-- **JWT (JSON Web Tokens)**
-- **Swagger (OpenAPI 3.1)**
-- **Mongoose / MongoDB**
-- **Helmet, CORS, Morgan**
-- **Gemini API (`@google/genai`)**
+### Frontend
+
+* React + TypeScript
+* CSS
+* Axios for API calls
+* Google Auth
+* Vite
+
+### Backend
+
+* Node.js + Express
+* TypeScript
+* MongoDB + Mongoose for database
+* Google Gemini API (`@google/genai`)
+* Swagger UI for API documentation
+* JWT for authentication
+* Helmet, CORS, and Morgan for security/logging
 
 ---
 
-## 🧰 Getting Started
+## 📸 Preview
 
-### 📦 Installation
+<img src="/frontend/screenshots/homepage.png" alt="Homepage Screenshot" width="600px" />
+<br/>
+*Homepage UI*
+
+<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2014-40-32.png" alt="Chatpage Screenshot" width="600px" />
+<br/>
+*Chatpage UI – chat interface with AI responses*
+
+<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2014-40-52.png" alt="Chatpage Screenshot" width="600px" />
+<br/>
+*Chatpage with AI generated contents*
+
+<img src="/frontend/screenshots/quiz.png" alt="Quiz Screenshot" width="600px" />
+<br/>
+*Auto-generated quiz with confetti celebration*
+
+<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2015-05-02.png" alt="Quiz Screenshot" width="600px" />
+<br/>
+*Swagger page*
+
+<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2015-05-10.png" alt="Quiz Screenshot" width="600px" />
+<br/>
+*Swagger page*
+
+## 🧰 Getting Started (Full Stack)
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/talk2dennis/naijaedu.git
-cd naijaedu-backend
+cd naijaedu
+```
+
+---
+
+### 2. Setup Backend
+
+```bash
+cd backend
 npm install
 ```
 
-### ⚙️ Environment Variables
-
-Create a `.env` file in the root directory:
+Create a `.env` file:
 
 ```env
 PORT=5000
-NODE_ENV=development
 JWT_SECRET=your_jwt_secret
 MONGO_URI=your_mongodb_connection_string
-CORS_ORIGIN=http://localhost:3000
+CORS_ORIGIN=http://localhost:5173
 GEMINI_API_KEY=your_google_genai_key
 ```
 
-### ▶️ Running Locally
+Run locally:
 
 ```bash
-# Development
 npm run dev
-
-# Production
-npm run build
-npm start
 ```
 
 ---
 
-## 📑 API Documentation
+### 3. Setup Frontend
 
-Access Swagger UI:
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-- **Local**: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
-- **Production**: [https://naijaedu.onrender.com/api-docs](https://naijaedu.onrender.com/api-docs)
-
-Use the **Authorize** button to provide your JWT token for protected endpoints.
-
----
-
-## 🔐 Authentication
-
-naijaEdu uses JWT authentication. To access protected routes:
-
-1. Register or log in to receive a token.
-2. Add the token to your requests:
-
-```http
-Authorization: Bearer <your_token>
+Create a `.env` file:
+```env
+VITE_GOOGLE_CLIENT_ID=your-google-client-id
+VITE_API_BASE_URL=you-backend-url
 ```
 
 ---
 
-## 📦 Routes
+## 🔗 API Reference
 
-### 🔑 Auth Routes
+Check the Swagger documentation:
 
-| Method | Endpoint             | Description                   |
-|--------|----------------------|-------------------------------|
-| POST   | `/api/auth/register` | Register a new user           |
-| POST   | `/api/auth/login`    | Log in and receive a token    |
-| GET    | `/api/auth/me`       | Get current user profile      |
+* [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+* [Production Swagger](https://naijaedu.onrender.com/api-docs)
 
 ---
 
-### 👥 User Routes
+## ✨ Demo Video
 
-**Base URL**: `/api/users`
-
-| Method | Endpoint      | Description                 |
-|--------|--------------|-----------------------------|
-| GET    | `/`          | Get all users (protected)   |
-| GET    | `/:id`       | Get user by ID              |
-| PUT    | `/:id`       | Update user by ID           |
-| DELETE | `/:id`       | Delete user by ID           |
+📽️ [Watch the Demo](https://www.linkedin.com/posts/talk2dennis_naijaedu-3mmt-knowledgeshowcase-activity-7351725128436637697-wWkJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAABdbbuAB4ddVF5l7FsFgL90cpOQdQ3KB29Y) – See how a student can go from topic confusion to quiz mastery in seconds.
 
 ---
 
-### 📚 Learning Routes
+## 🎯 Ideal For
 
-**Base URL**: `/api/ai`
-
-| Method | Endpoint                   | Description                                 |
-|--------|----------------------------|---------------------------------------------|
-| POST   | `/generate-explanation`    | Generate explanation for a topic (Gemini)   |
-| POST   | `/generate-quiz/:contentId`| Generate quiz based on explanation content  |
-| GET    | `/user-content`            | Get all user-generated content              |
+* Secondary school students (WAEC/NECO)
+* Self-learners and teachers
+* Education-focused hackathons or AI showcases
 
 ---
 
-#### Example Quiz Response
+## 📦 Deployment
 
-```json
-[
-  {
-    "question": "What is the center of the Solar System?",
-    "options": [
-      "A. Earth",
-      "B. The Sun",
-      "C. The Moon",
-      "D. Mars"
-    ],
-    "correctAnswer": "B"
-  }
-]
-```
-
----
-
-## 🚀 Deployment
-
-Deployed on **Render.com**.
-
-- Base URL: `https://naijaedu.onrender.com`
-- API Docs: [https://naijaedu.onrender.com/api-docs](https://naijaedu.onrender.com/api-docs)
-
-Ensure your Swagger server URL matches production:
-
-```ts
-servers: [
-  {
-    url: "https://naijaedu.onrender.com",
-  },
-]
-```
+* **Frontend**: Vercel – [naijaedu.vercel.app](https://naijaedu.vercel.app)
+* **Backend**: Render – [naijaedu.onrender.com](https://naijaedu.onrender.com)
 
 ---
 
 ## 📄 License
 
-MIT License © 2025 Dennis Adigwe
+MIT © 2025 [Dennis Adigwe](https://github.com/talk2dennis)
 
