@@ -24,16 +24,16 @@ const Share: React.FC<ShareProps> = ({ url, explanation }) => {
   return (
     <div className="share-buttons">
         <h3>Share this explanation:</h3>
-      <FacebookShareButton url={shareUrl}>
+      <FacebookShareButton url={explanation}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
-      <TwitterShareButton url={shareUrl} title={title}>
+      <TwitterShareButton url={explanation} title={title}>
         <TwitterIcon size={32} round />
       </TwitterShareButton>
-      <LinkedinShareButton url={shareUrl} title={title}>
+      <LinkedinShareButton url={explanation} title={title}>
         <LinkedinIcon size={32} round />
       </LinkedinShareButton>
-      <WhatsappShareButton url={shareUrl} title={title}>
+      <WhatsappShareButton url={explanation} title={title}>
         <WhatsappIcon size={32} round />
       </WhatsappShareButton>
     </div>
