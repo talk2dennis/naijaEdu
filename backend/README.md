@@ -202,6 +202,6 @@ servers: [
 ---
 
 ## 📄 License
-
-MIT License © 2025 Dennis Adigwe
+MIT License © 2025 [Dennis Adigwe](https://github.com/talk2dennis)  
+Connect on [LinkedIn](https://www.linkedin.com/in/talk2dennis)
 
