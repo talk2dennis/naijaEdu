@@ -27,7 +27,7 @@ const Share: React.FC<ShareProps> = ({ url, explanation }) => {
       <FacebookShareButton url={explanation}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
-      <TwitterShareButton url={explanation} title={title}>
+      <TwitterShareButton url={explanation} title={shareUrl}>
         <TwitterIcon size={32} round />
       </TwitterShareButton>
       <LinkedinShareButton url={explanation} title={title}>
