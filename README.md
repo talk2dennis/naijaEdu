@@ -65,29 +65,20 @@ With Google sign-in, voice playback, and confetti-based gamification, naijaEdu m
 
 ## 📸 Preview
 
-<img src="/frontend/screenshots/homepage.png" alt="Homepage Screenshot" width="600px" />
-<br/>
+![Homepage Screenshot](./screenshots/homepage.png)
 *Homepage UI*
 
-<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2014-40-32.png" alt="Chatpage Screenshot" width="600px" />
-<br/>
+![Chatpage Screenshot](./screenshots/Screenshot%20from%202025-07-24%2014-40-32.png)
 *Chatpage UI – chat interface with AI responses*
 
-<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2014-40-52.png" alt="Chatpage Screenshot" width="600px" />
-<br/>
+![Chatpage Screenshot](./screenshots/Screenshot%20from%202025-07-24%2014-40-52.png)
 *Chatpage with AI generated contents*
 
-<img src="/frontend/screenshots/quiz.png" alt="Quiz Screenshot" width="600px" />
-<br/>
+![Quiz Screenshot](./screenshots/quiz.png)
 *Auto-generated quiz with confetti celebration*
 
-<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2015-05-02.png" alt="Quiz Screenshot" width="600px" />
-<br/>
-*Swagger page*
-
-<img src="/frontend/screenshots/Screenshot%20from%202025-07-24%2015-05-10.png" alt="Quiz Screenshot" width="600px" />
-<br/>
-*Swagger page*
+![Quiz Screenshot](./screenshots/quiz.png)
+*Auto-generated quiz with confetti celebration*
 
 ## 🧰 Getting Started (Full Stack)
 
@@ -173,5 +164,6 @@ Check the Swagger documentation:
 
 ## 📄 License
 
-MIT © 2025 [Dennis Adigwe](https://github.com/talk2dennis)
+MIT License © 2025 [Dennis Adigwe](https://github.com/talk2dennis)  
+Connect on [LinkedIn](https://www.linkedin.com/in/talk2dennis)
 
