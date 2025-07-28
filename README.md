@@ -1,104 +1,95 @@
-# 📚 naijaEdu – AI-Powered Learning for Nigerian Students
+# 📚 naijaEdu – AI-Powered Learning for Nigerian Students 🇳🇬
 
-**naijaEdu** is a full-stack AI-driven learning platform that helps Nigerian students understand complex topics in simple terms. Powered by Google Gemini, the app explains any topic, reads it out loud, and generates quiz questions to reinforce learning all through an intuitive chat interface.
+**naijaEdu** is a full-stack AI-powered learning platform designed to help Nigerian students understand complex academic topics with ease. Using Google Gemini, the platform provides simplified explanations, voice playback via text-to-speech, and instantly generated quiz questions—all within an intuitive chat interface.
 
-With Google sign-in, voice playback, and confetti-based gamification, naijaEdu makes studying smarter and more engaging.
-
----
-
-## 🌍 Live Demo
-
-* 🧠 App: [https://naijaedu.vercel.app](https://naijaedu.vercel.app)
-* 🛠️ API Docs (Swagger): [https://naijaedu.onrender.com/api-docs](https://naijaedu.onrender.com/api-docs)
+With Google login, gamification (confetti celebrations), and shareable content, **naijaEdu** makes studying smarter and more engaging.
 
 ---
 
-## 🚀 Key Features
+## 🌐 Live Demo
 
-### 🧠 AI Learning Assistant
+* 🔗 **App**: [naijaedu.vercel.app](https://naijaedu.vercel.app)
+* 📘 **API Docs (Swagger)**: [naijaedu.onrender.com/api-docs](https://naijaedu.onrender.com/api-docs)
 
-* Input any topic and receive a simplified explanation via the Gemini API.
+---
 
-### 🔊 Text-to-Speech (TTS)
+## 🚀 Features
 
-* Explanations can be played aloud for accessibility and ease of comprehension.
-
-### 🎯 Auto Quiz Generator
-
-* Instantly generate multiple-choice quizzes from topic content.
-
-### 🎉 Gamified UX
-
-* Confetti animation celebrates successful quiz attempts.
-
-### 🔐 Authentication
-
-* Supports Google sign-in and email/password login.
-
-### 📤 Shareable Content
-
-* Share explanations directly to social platforms.
+| Feature                        | Description                                                            |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| 🧠 **AI-Powered Explanations** | Enter any topic and get a simplified explanation via Google Gemini.    |
+| 🔊 **Text-to-Speech (TTS)**    | Listen to topic explanations for auditory learning and accessibility.  |
+| 🎯 **Auto Quiz Generator**     | Generate multiple-choice quizzes based on the explained topic.         |
+| 🎉 **Gamified Experience**     | Celebrate quiz success with confetti animations and friendly feedback. |
+| 🔐 **Authentication**          | Sign in using Google or email/password (Auth).                |
+| 📤 **Shareable Content**       | Share AI-generated explanations with friends or on social media.       |
 
 ---
 
 ## 🧑‍💻 Tech Stack
 
-### Frontend
+### 🖼️ Frontend
 
 * React + TypeScript
-* CSS
-* Axios for API calls
-* Google Auth
 * Vite
+* Axios
+* CSS
+* Firebase Auth (Google login)
 
-### Backend
+### 🔧 Backend
 
-* Node.js + Express
-* TypeScript
-* MongoDB + Mongoose for database
+* Node.js + Express (TypeScript)
+* MongoDB + Mongoose
 * Google Gemini API (`@google/genai`)
 * Swagger UI for API documentation
-* JWT for authentication
-* Helmet, CORS, and Morgan for security/logging
+* JWT for secure authentication
+* Helmet, CORS, Morgan for security/logging
 
 ---
 
-## 📸 Preview
+## 🧠 Architecture Overview
 
-![Homepage Screenshot](./screenshots/homepage.png)
-*Homepage UI*
+```mermaid
+graph TD
+A[Frontend (React)] -->|REST API| B[Backend (Express/Node.js)]
+B --> C[Google Gemini API]
+B --> D[MongoDB]
+A --> E[Auth]
+A --> F[TTS (Web Speech API)]
+```
 
-![Chatpage Screenshot](./screenshots/Screenshot%20from%202025-07-24%2014-40-32.png)
-*Chatpage UI – chat interface with AI responses*
+> 🧩 Users interact with the React frontend → Backend sends topic prompts to Gemini → Stores data in MongoDB → Frontend renders explanation, reads it aloud (TTS), and generates a quiz.
 
-![Chatpage Screenshot](./screenshots/Screenshot%20from%202025-07-24%2014-40-52.png)
-*Chatpage with AI generated contents*
+---
 
-![Quiz Screenshot](./screenshots/quiz.png)
-*Auto-generated quiz with confetti celebration*
+## 🖼️ UI Previews
 
-![Quiz Screenshot](./screenshots/quiz.png)
-*Auto-generated quiz with confetti celebration*
+| Screen                   | Preview                                                          |
+| ------------------------ | ---------------------------------------------------------------- |
+| Homepage                 | ![](./frontend/screenshots/homepage.png)                                  |
+| Chat Interface           | ![](./frontend/screenshots/Screenshot%20from%202025-07-24%2014-40-32.png) |
+| AI Generated Explanation | ![](./frontend/screenshots/Screenshot%20from%202025-07-24%2014-40-52.png) |
+| Quiz Page                | ![](./frontend/screenshots/quiz.png)                                      |
 
-## 🧰 Getting Started (Full Stack)
+---
 
-### 1. Clone the Repository
+## 🧰 Getting Started
+
+### 1️⃣ Clone the Repo
 
 ```bash
 git clone https://github.com/talk2dennis/naijaedu.git
 cd naijaedu
 ```
 
----
-
-### 2. Setup Backend
+### 2️⃣ Backend Setup
 
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file:
+Create `.env` in `/backend`:
 
 ```env
 PORT=5000
@@ -108,62 +99,74 @@ CORS_ORIGIN=http://localhost:5173
 GEMINI_API_KEY=your_google_genai_key
 ```
 
-Run locally:
+Run the backend:
 
 ```bash
 npm run dev
 ```
 
----
-
-### 3. Setup Frontend
+### 3️⃣ Frontend Setup
 
 ```bash
 cd frontend
 npm install
+```
+
+Create `.env` in `/frontend`:
+
+```env
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+VITE_API_BASE_URL=http://localhost:5000
+```
+
+Run the frontend:
+
+```bash
 npm run dev
 ```
 
-Create a `.env` file:
-```env
-VITE_GOOGLE_CLIENT_ID=your-google-client-id
-VITE_API_BASE_URL=you-backend-url
-```
+---
+
+## 🔗 API Documentation
+
+* 🧪 Local Swagger: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+* 🌐 Live Swagger: [naijaedu.onrender.com/api-docs](https://naijaedu.onrender.com/api-docs)
 
 ---
 
-## 🔗 API Reference
+## 📽️ Demo Video
 
-Check the Swagger documentation:
+🎥 [Watch the Live Demo](https://www.linkedin.com/posts/talk2dennis_naijaedu-3mmt-knowledgeshowcase-activity-7351725128436637697-wWkJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAABdbbuAB4ddVF5l7FsFgL90cpOQdQ3KB29Y)
 
-* [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
-* [Production Swagger](https://naijaedu.onrender.com/api-docs)
-
----
-
-## ✨ Demo Video
-
-📽️ [Watch the Demo](https://www.linkedin.com/posts/talk2dennis_naijaedu-3mmt-knowledgeshowcase-activity-7351725128436637697-wWkJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAABdbbuAB4ddVF5l7FsFgL90cpOQdQ3KB29Y) – See how a student can go from topic confusion to quiz mastery in seconds.
+> ✨ See how a student goes from topic confusion to quiz mastery in seconds!
 
 ---
 
 ## 🎯 Ideal For
 
-* Secondary school students (WAEC/NECO)
-* Self-learners and teachers
-* Education-focused hackathons or AI showcases
+* WAEC/NECO/UTME exam prep
+* Teachers and peer educators
+* Education hackathons and AI showcases
+* Self-paced learners in Nigeria and across Africa
 
 ---
 
-## 📦 Deployment
+## ☁️ Deployment
 
-* **Frontend**: Vercel – [naijaedu.vercel.app](https://naijaedu.vercel.app)
-* **Backend**: Render – [naijaedu.onrender.com](https://naijaedu.onrender.com)
+| Component | Platform | Link                                                   |
+| --------- | -------- | ------------------------------------------------------ |
+| Frontend  | Vercel   | [naijaedu.vercel.app](https://naijaedu.vercel.app)     |
+| Backend   | Render   | [naijaedu.onrender.com](https://naijaedu.onrender.com) |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [`CONTRIBUTING.md`](./CONTRIBUTING.md) for setup and best practices.
 
 ---
 
 ## 📄 License
 
-MIT License © 2025 [Dennis Adigwe](https://github.com/talk2dennis)  
-Connect on [LinkedIn](https://www.linkedin.com/in/talk2dennis)
-
+MIT License © 2025 [Dennis Adigwe](https://github.com/talk2dennis)
+🔗 [Connect on LinkedIn](https://www.linkedin.com/in/talk2dennis)
