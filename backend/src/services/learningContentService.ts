@@ -12,11 +12,11 @@ export const generateExplanation = async (userId: string, topic: string): Promis
         throw new Error('Gemini API key is not configured.');
     }
 
-    const prompt = `Explain the topic "${topic}" as if you’re teaching a Nigerian secondary school student. Use simple English and break the explanation into clear, short paragraphs. Speak like a relatable Nigerian teacher.
+    const prompt = `Explain the topic "${topic}" for a Nigerian secondary school student. Use simple English and break the explanation into clear, short paragraphs.
 
-Add a little Nigerian Pidgin English where it makes sense — just small small — to make it feel friendly and real. Don't overdo it.
+Add a little Nigerian Pidgin English where it makes sense to make it feel friendly and real. Don't overdo it.
 
-If the topic is from science, mathematics, or coding, include practical Nigerian examples (like NEPA, JAMB, market prices, etc.), and format any code or formulas using markdown code blocks.
+If the topic is from science, mathematics, or coding, include practical Nigerian examples (like NEPA, JAMB, market prices, foods, etc.), and format any code or formulas using markdown code blocks.
 
 If it's from arts, history, or social science, use comparisons or analogies from everyday Nigerian life — like school, family, transport, or politics.
 
