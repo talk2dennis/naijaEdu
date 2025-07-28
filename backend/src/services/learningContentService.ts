@@ -1,5 +1,4 @@
 import LearningContent, { ILearningContent, IQuizQuestion } from "../models/LearningContent";
-import axios from "axios";
 import { GEMINI_API_KEY, GEMINI_API_BASE_URL } from "../config/env.check";
 import { GoogleGenAI } from "@google/genai";
 
@@ -13,7 +12,12 @@ export const generateExplanation = async (userId: string, topic: string): Promis
         throw new Error('Gemini API key is not configured.');
     }
 
-    const prompt = `Explain the topic "${topic}" concisely and simply, as if for a student in Nigeria. Use clear, relatable language.`;
+    const prompt = `Explain the topic "${topic}" in a clear and concise paragraph, as if teaching a Nigerian secondary school student. Use simple English, avoid technical jargon, and make the explanation easy to understand.
+
+    If the topic is related to science, mathematics, or coding, provide a practical example using everyday Nigerian context (e.g., food, school, or transport).
+
+    If the topic is abstract (like government, history, or literature), use relatable analogies or comparisons a Nigerian student can understand. Keep the tone friendly and focused on understanding.`;
+
 
     try {
         const response = await ai.models.generateContent({
@@ -47,7 +51,7 @@ export const generateQuiz = async (contentId: string, userId: string, explanatio
         throw new Error('Gemini API key is not configured.');
     }
 
-    const quizPrompt = `Based on the following explanation, generate a 3-question multiple-choice quiz.
+    const quizPrompt = `Based on the following explanation, generate a 5-question multiple-choice quiz.
   For each question, provide the question text, four options (A, B, C, D), and the correct answer letter.
   Format the output as a JSON array of objects, where each object has 'question' (string), 'options' (array of strings), and 'correctAnswer' (string, e.g., "A", "B", "C", or "D").
   Ensure the questions are directly related to the explanation provided:
