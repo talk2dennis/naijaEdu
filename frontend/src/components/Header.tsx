@@ -2,7 +2,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 import './css/Header.css';
 import { useNavigate } from 'react-router-dom';
 import ProfilePicture from './ProfilePicture';
@@ -28,7 +28,7 @@ export default function Header() {
         className="logo-container"
         onClick={() => navigate('/')}
       >
-        <div className='logo'><img src={logo} height={50} /></div>
+        <div className='logo'><img src={logo} height={50} alt='Logo' /></div>
         <h1 className="app-title">NaijaEdu</h1>
       </div>
 
