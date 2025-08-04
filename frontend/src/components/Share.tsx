@@ -18,8 +18,8 @@ interface ShareProps {
 }
 
 const Share: React.FC<ShareProps> = ({ url, explanation }) => {
-  const shareUrl = url;
-  const title = explanation;
+  const shareUrl = 'https://naijaedu.vercel.app/';
+  const title = `${explanation} ${url}`;
 
   return (
     <div className="share-buttons">
